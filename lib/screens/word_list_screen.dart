@@ -29,7 +29,7 @@ class _WordListScreenState extends State<WordListScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.sort),
-            tooltip: "暗記済みん単語が下になるようにソート",
+            tooltip: "暗記済の単語が下になるようにソート",
             onPressed: () => _sortWords(),
           )
         ],
@@ -102,5 +102,8 @@ class _WordListScreenState extends State<WordListScreen> {
                 )));
   }
 
-  _sortWords() {}
+  _sortWords() async {
+    _wordList = await database.allWordSorted;
+    setState(() {});
+  }
 }
