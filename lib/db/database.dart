@@ -11,6 +11,8 @@ class Words extends Table {
 
   TextColumn get strAnswer => text()();
 
+  BoolColumn get isMemorized => boolean().withDefault(Constant(false))();
+
   @override
   Set<Column> get primaryKey => {strQuestion};
 }
@@ -20,7 +22,16 @@ class MyDatabase extends _$MyDatabase {
   MyDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  //統合処理
+  MigrationStrategy get migration => MigrationStrategy(onCreate: (Migrator m) {
+        return m.createAll();
+      }, onUpgrade: (Migrator m, int from, int to) async {
+        if (from == 1) {
+          await m.addColumn(words, words.isMemorized);
+        }
+      });
 
   //追加
   Future addWord(Word word) => into(words).insert(word);

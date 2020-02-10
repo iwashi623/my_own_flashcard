@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
   _startWordListScreen(BuildContext context) {
     Navigator.push(
         context,
-        //クラス名を処理の内容として明示する。(WordListScreen)
+        //次のページのクラス名を処理の内容として明示する。(WordListScreen)
         MaterialPageRoute(builder: (context) => WordListScreen()));
   }
 

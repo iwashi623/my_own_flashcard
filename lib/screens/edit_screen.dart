@@ -11,7 +11,6 @@ class EditScreen extends StatefulWidget {
   final EditStatus status;
   final Word word;
 
-
   EditScreen({@required this.status, this.word});
 
   @override
@@ -30,7 +29,7 @@ class _EditScreenState extends State<EditScreen> {
   void initState() {
     super.initState();
 
-    if(widget.status == EditStatus.ADD) {
+    if (widget.status == EditStatus.ADD) {
       _titleText = "新しい単語の追加";
       questionController.text = "";
       answerController.text = "";
@@ -159,10 +158,10 @@ class _EditScreenState extends State<EditScreen> {
       answerController.clear();
       Toast.show("登録が完了しました。", context, duration: Toast.LENGTH_LONG);
     } on SqliteException catch (e) {
-      Toast.show("この問題はすに登録されているので登録できません。", context, duration: Toast.LENGTH_LONG);
+      Toast.show("この問題はすに登録されているので登録できません。", context,
+          duration: Toast.LENGTH_LONG);
     }
   }
-
 
   void _updateWord() async {
     if (questionController.text == "" || answerController.text == "") {
@@ -171,14 +170,17 @@ class _EditScreenState extends State<EditScreen> {
       return;
     }
     var word = Word(
-        strQuestion: questionController.text, strAnswer: answerController.text);
+        strQuestion: questionController.text,
+        strAnswer: answerController.text,
+        isMemorized: false);
 
     try {
       await database.updateWord(word);
       _backToWordListScreen();
       Toast.show("修正が完了しました。", context, duration: Toast.LENGTH_LONG);
     } on SqliteException catch (e) {
-      Toast.show("何らかの問題が発生して登録できませんでした。:$e", context, duration: Toast.LENGTH_LONG);
+      Toast.show("何らかの問題が発生して登録できませんでした。:$e", context,
+          duration: Toast.LENGTH_LONG);
       return;
     }
   }
