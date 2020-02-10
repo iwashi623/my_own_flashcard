@@ -26,6 +26,13 @@ class _WordListScreenState extends State<WordListScreen> {
       appBar: AppBar(
         title: Text("単語一覧"),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.sort),
+            tooltip: "暗記済みん単語が下になるようにソート",
+            onPressed: () => _sortWords(),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addNewWord(),
@@ -71,6 +78,8 @@ class _WordListScreenState extends State<WordListScreen> {
           "${_wordList[position].strAnswer}",
           style: TextStyle(fontFamily: "Mont"),
         ),
+        trailing:
+            _wordList[position].isMemorized ? Icon(Icons.check_circle) : null,
         onTap: () => _editWord(_wordList[position]),
         onLongPress: () => _deleteWord(_wordList[position]),
       ),
@@ -92,4 +101,6 @@ class _WordListScreenState extends State<WordListScreen> {
                   word: selectedWord,
                 )));
   }
+
+  _sortWords() {}
 }

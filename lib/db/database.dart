@@ -39,6 +39,15 @@ class MyDatabase extends _$MyDatabase {
   //すべて抽出
   Future<List<Word>> get allWord => select(words).get();
 
+  //暗記済みの単語を除くものを抽出
+  Future<List<Word>> get allWordsExcludedMemorized =>
+      (select(words)..where((table) => table.isMemorized.equals(false))).get();
+
+  //ソートのための並べ替え抽出
+  Future<List<Word>> get allWordSorted => (select(words)
+        ..orderBy([(table) => OrderingTerm(expression: table.isMemorized)]))
+      .get();
+
   //更新
   Future updateWord(Word word) => update(words).replace(word);
 
